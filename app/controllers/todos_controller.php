@@ -78,7 +78,7 @@ class TodosController extends AppController {
 		
 		// Editing as Jankees. Not Jankees? Change name here...
 		$sublink = "Editing as ". $name .". Not ". $name . "? " . $html->link("Change here...", array("action"=>"start",$project_id));
-		
+		$logoutlink = $html->link("Logout", session_destroy());
 		if($auth_level > 1){
 			
 			$locklink = $html->link($html->image($html->url('/img/book_open.png'),array('title' => 'open project log')), array('action' => 'project_log',$project_id,$name),array('escape' => false));
@@ -93,10 +93,8 @@ class TodosController extends AppController {
 		}
 		
 		$this->set('title_for_layout', $project_id.' - '.$name. ' on Todomeister'); 		
-		
 		$this->set('custom_title', $project_id.$locklink);
-		$this->set('custom_sub_title', $sublink);
-		
+		$this->set('custom_sub_title', $sublink . $logoutlink);
 		$this->set('auth_level', $auth_level);
 	}
 	
